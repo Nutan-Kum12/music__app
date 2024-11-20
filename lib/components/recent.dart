@@ -1,3 +1,7 @@
+import 'package:app_3/components/Workplaylist.dart';
+import 'package:app_3/components/playlist.dart';
+import 'package:app_3/components/recentp.dart';
+import 'package:app_3/components/travelPlaylist.dart';
 import 'package:app_3/pages/account.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -13,18 +17,18 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMixin {
-  late TabController _tabController;
+  late TabController tabController;
   List<int> recentlyPlayedIndices = [];
   
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 4, vsync: this);
+    tabController = TabController(length: 4, vsync: this);
   }
 
   @override
   void dispose() {
-    _tabController.dispose();
+    tabController.dispose();
     super.dispose();
   }
 
@@ -36,16 +40,16 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
       backgroundColor: Colors.black,
       body: Column(
         children: [
-          _buildHeader(screenWidth),
-          Center(child: _buildTabBar()), // Updated line to center the TabBar
+          buildHeader(screenWidth),
+          Center(child: buildTabBar()), 
           Expanded(
             child: TabBarView(
-              controller: _tabController,
+              controller: tabController,
               children: [
-                _buildForYouTab(),
-                _buildRelaxTab(),
-                _buildWorkoutTab(),
-                _buildTravelTab(),
+                buildForYouTab(),
+                buildRelaxTab(),
+                buildWorkoutTab(),
+                buildTravelTab(),
               ],
             ),
           ),
@@ -54,9 +58,9 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
     );
   }
 
-  Widget _buildHeader(double screenWidth) {
+  Widget buildHeader(double screenWidth) {
     return Padding(
-      padding: const EdgeInsets.only(top: 40.0, left: 8, right: 8),
+      padding:  EdgeInsets.only(top: 40.0, left: 8, right: 8),
       child: Row(
         children: [
           Expanded(
@@ -84,20 +88,20 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
     );
   }
 
-  Widget _buildTabBar() {
+  Widget buildTabBar() {
     return Padding(
       padding: const EdgeInsets.only(top: 8.0,bottom: 10),
       child: Container(
-        width: MediaQuery.of(context).size.width * 0.8, // 80% of screen width
+        width: MediaQuery.of(context).size.width * 0.8,
         child: TabBar(
-          controller: _tabController,
+          controller: tabController,
           isScrollable: true,
           indicatorColor: Colors.orange,
           labelColor: Colors.orange,
           unselectedLabelColor: Colors.white,
-          labelStyle: TextStyle(fontSize:22, fontWeight: FontWeight.bold), // Increased font size
-          unselectedLabelStyle: TextStyle(fontSize:18), // Increased font size for unselected tabs
-          indicatorWeight: 3, // Makes the indicator line thicker
+          labelStyle: TextStyle(fontSize:22, fontWeight: FontWeight.bold), 
+          unselectedLabelStyle: TextStyle(fontSize:18), 
+          indicatorWeight: 3, 
           tabs:  [
             Tab(text: "For You"),
             Tab(text: "Relax"),
@@ -109,16 +113,17 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
     );
   }
 
-  Widget _buildForYouTab() {
+  Widget buildForYouTab() {
     return SingleChildScrollView(
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: EdgeInsets.all(8.0),
         child: Column(
           children: [
             FeaturingToday(),
             SizedBox(height: 10),
             MixesForYou(),
             SizedBox(height: 10),
+            RecentlySection(),
             EditorsPicksSection(),
           ],
         ),
@@ -126,15 +131,22 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
     );
   }
 
-  Widget _buildRelaxTab() {
-    return Center(child: Text("Relax Content", style: TextStyle(color: Colors.white)));
+  Widget buildRelaxTab() {
+    final double screenWidth = MediaQuery.of(context).size.width;
+    return Padding(padding: EdgeInsets.all(8),
+    child: PlaylistScreen(),
+    );
   }
-
-  Widget _buildWorkoutTab() {
-    return Center(child: Text("Workout Content", style: TextStyle(color: Colors.white)));
+  Widget buildWorkoutTab(){
+    final double screenWidth = MediaQuery.of(context).size.width;
+    return Padding(padding: EdgeInsets.all(8),
+    child: WorkPlaylist(),
+    );
   }
-
-  Widget _buildTravelTab() {
-    return Center(child: Text("Travel Content", style: TextStyle(color: Colors.white)));
+  Widget buildTravelTab() {
+    final double screenWidth = MediaQuery.of(context).size.width;
+    return Padding(padding: EdgeInsets.all(8),
+    child: TravelPlaylist(),
+    );
   }
 }

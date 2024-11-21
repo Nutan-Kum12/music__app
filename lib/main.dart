@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
         "/signup": (context) =>  SignUpPage(),
         "/login": (context) =>  LoginPage(),
         "/playlist": (context) => PlaylistScreen( song: song,),
-        "/create_playlist": (context) => CreatePlaylist( song: song,),
+        "/create_playlist": (context) => Playlist(),
        // "/settings": (context) => SettingsScreen(),
         "/filepicker": (context) => MusicPlayerScreen(),
         "/search": (context) => SearchPage(),

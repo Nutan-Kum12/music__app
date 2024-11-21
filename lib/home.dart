@@ -13,7 +13,7 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State<Homepage> {
-  late User _currentUser;
+  User? _currentUser;
   bool isLoading = true;
   int currentIndex = 0; 
 
@@ -24,19 +24,25 @@ class _HomepageState extends State<Homepage> {
   ];
   @override
   void initState() {
+    super.initState();
     getUser().then((value) {
       setState(() {
-        _currentUser = value!;
+        _currentUser = value;
         isLoading = false;
       });
     });
-    super.initState();
+
   }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-      body: pages[currentIndex], 
+      body:isLoading
+          ? Center(child: CircularProgressIndicator())
+          : IndexedStack(
+        index: currentIndex,
+        children: pages,
+      ),
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: Colors.black,
         selectedItemColor: Colors.white,

@@ -3,7 +3,7 @@ import 'package:appwrite/models.dart';
 
 Client client = Client()
 .setEndpoint('https://cloud.appwrite.io/v1')
-.setProject('673030910027c1f3cb2c');
+.setProject('673e365b00131e86ba69');
 
 Account account=Account(client);
 

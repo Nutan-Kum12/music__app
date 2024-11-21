@@ -90,7 +90,7 @@ class _AccountPageState extends State<AccountPage> {
                 ],
               ),
               Divider(color: Colors.grey),
-              // Logout Button
+
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: ElevatedButton(

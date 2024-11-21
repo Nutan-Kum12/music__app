@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
-import 'filepicker.dart';
+// import 'filepicker.dart';
+import 'travelPlaylist.dart';
 
-class SongDetailScreen extends StatefulWidget {
+class PlayPage extends StatefulWidget {
   final List<Song> songs;
   final int initialIndex;
   final AudioPlayer audioPlayer;
 
-   SongDetailScreen({
+   PlayPage({
     Key? key,
     required this.songs,
     required this.initialIndex,
@@ -18,7 +19,7 @@ class SongDetailScreen extends StatefulWidget {
   _SongDetailScreenState createState() => _SongDetailScreenState();
 }
 
-class _SongDetailScreenState extends State<SongDetailScreen> {
+class _SongDetailScreenState extends State<PlayPage> {
   late int currentIndex;
   bool isPlaying = false;
   Duration duration = Duration.zero;

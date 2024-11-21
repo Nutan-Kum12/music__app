@@ -5,14 +5,14 @@ import 'songdetail.dart';
 
 class Song {
   final String title;
-  final String artist; 
+  final String artist;
   final String asset;
   final String imageAsset;
   bool isFavorite;
 
   Song({
     required this.title,
-    required this.artist, 
+    required this.artist,
     required this.asset,
     required this.imageAsset,
     this.isFavorite = false,
@@ -39,19 +39,19 @@ class _MusicPlayerScreenState extends State<MusicPlayerScreen> {
       title: "Beach nex",
       artist: "Artist 2",
       asset: "audio/song2.mp3",
-      imageAsset: "assets/images/album1.png",
+      imageAsset: "assets/images/mix2.png",
     ),
     Song(
       title: "WErx Dx",
       artist: "Artist 3",
       asset: "audio/song3.mp3",
-      imageAsset: "assets/images/search4.png",
+      imageAsset: "assets/images/peace.png",
     ),
     Song(
       title: "UI max",
       artist: "Artist 4",
       asset: "audio/song4.mp3",
-      imageAsset: "assets/images/album2.png",
+      imageAsset: "assets/images/young.png",
     ),
     Song(
       title: "NI ubun",
@@ -66,8 +66,6 @@ class _MusicPlayerScreenState extends State<MusicPlayerScreen> {
       imageAsset: "assets/images/album2.png",
     ),
   ];
-
-  int? currentlyPlayingIndex;
 
   void navigateToSongDetail(int index) {
     Navigator.push(
@@ -86,10 +84,12 @@ class _MusicPlayerScreenState extends State<MusicPlayerScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Music Player'),
+        title: const Text('Music Player',style: TextStyle(
+          fontSize: 22
+        ),),
         actions: [
           IconButton(
-            icon: Icon(Icons.favorite),
+            icon: const Icon(Icons.favorite),
             onPressed: () {
               Navigator.push(
                 context,
@@ -104,42 +104,52 @@ class _MusicPlayerScreenState extends State<MusicPlayerScreen> {
         ],
       ),
       body: SafeArea(
-        child: ListView.builder(
-          itemCount: songs.length,
-          itemBuilder: (context, index) {
-            return SizedBox(
-              height: MediaQuery.of(context).size.height * 0.12,
-              child: Card(
-                color: const Color.fromARGB(255, 0, 0, 0),
-                elevation: 5,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: ListTile(
-                  leading: Padding(
-                    padding:  EdgeInsets.only(left: 8.0),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(4),
-                      child: Image.asset(
-                        songs[index].imageAsset,
-                        width: 60, // Updated width
-                        height: 80, // Updated height
-                        fit: BoxFit.cover,
-                      ),
+        child: Column(
+          children: songs.map((song) {
+            int index = songs.indexOf(song);
+            return Padding(
+              padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 16.0),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(8),
+                    child: Image.asset(
+                      song.imageAsset,
+                      width: 70,
+                      height: 70,
+                      fit: BoxFit.cover,
                     ),
                   ),
-                  title: Text(
-                    songs[index].title,
-                    style: TextStyle(fontWeight: FontWeight.bold,
-                    color:Colors.white ),
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          song.title,
+                          style:  TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                            fontSize: 19
+                          ),
+                        ),
+                        Text(
+                          song.artist,
+                          style: const TextStyle(color: Colors.grey,
+                          fontSize: 15),
+                        ),
+                      ],
+                    ),
                   ),
-                  subtitle: Text(songs[index].artist,
-                  style: TextStyle(color: Colors.white),), // Display artist name
-                  onTap: () => navigateToSongDetail(index),
-                ),
+                  ElevatedButton(
+                    onPressed: () => navigateToSongDetail(index),
+                    child: const Text('Play'),
+                  ),
+                ],
               ),
             );
-          },
+          }).toList(),
         ),
       ),
     );

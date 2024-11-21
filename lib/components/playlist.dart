@@ -1,3 +1,4 @@
+import 'package:app_3/components/workPlay.dart';
 import 'package:flutter/material.dart';
 
 class PlaylistScreen extends StatelessWidget {
@@ -60,7 +61,9 @@ class PlaylistScreen extends StatelessWidget {
                               shape: const CircleBorder(),
                               padding: const EdgeInsets.all(16),
                             ),
-                            onPressed: () {},
+                            onPressed: () {
+                              // Navigator.push(context, MaterialPageRoute(builder: (context)=>WorkPlay(songs: songs, initialIndex: initialIndex, audioPlayer: audioPlayer)))
+                            },
                             child: Icon(Icons.play_arrow, color: Colors.white, size: 28),
                           ),
                           const SizedBox(width: 16),

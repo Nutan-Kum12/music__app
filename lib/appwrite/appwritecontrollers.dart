@@ -82,7 +82,7 @@ Future<bool> sendRecoveryMail(String email) async {
 //   }
 // }
 
-// check if user session is active or not
+// // check if user session is active or not
 Future<bool> checkSessions() async {
   try {
     await account.getSession(sessionId: "current");
@@ -92,5 +92,30 @@ Future<bool> checkSessions() async {
   }
 }
 
+// Future<String> deleteAccount(Account account) async {
+//   try {
+//     await account.delete();
+//     return "Account deleted successfully.";
+//   } on AppwriteException catch (e) {
+//     return "Failed to delete account: ${e.message}";
+//   }
+// }
+
+
+Future<void> updatePassword(Client client, String newPassword) async {
+  try {
+    // Initialize the Account service
+    final account = Account(client);
+
+    // Call the updatePassword method
+    await account.updatePassword(
+      password: newPassword,
+    );
+
+    print('Password updated successfully!');
+  } catch (e) {
+    print('Error updating password: $e');
+  }
+}
 
 

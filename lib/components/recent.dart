@@ -140,7 +140,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   Widget buildWorkoutTab(){
     final double screenWidth = MediaQuery.of(context).size.width;
     return Padding(padding: EdgeInsets.all(8),
-    child: WorkPlaylist(),
+    child:Workplaylist(),
     );
   }
   Widget buildTravelTab() {

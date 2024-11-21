@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audioplayers.dart';
+import '../pages/playlist.dart';
 import 'filepicker.dart';
 
 class SongDetailScreen extends StatefulWidget {
@@ -167,7 +168,57 @@ Widget build(BuildContext context) {
                       textAlign: TextAlign.center,
                       overflow: TextOverflow.ellipsis,
                     ),
-                    Icon(Icons.more_vert, size: 28, color: Colors.white),
+                    IconButton(
+                      icon: Icon(Icons.more_vert, size: 28, color: Colors.white),
+                      onPressed: () {
+
+                        showMenu(
+                          context: context,
+                          position: RelativeRect.fromLTRB(100, 100, 0, 0),
+                          items: [
+                            PopupMenuItem(
+                              value: 'add_to_playlist',
+                              child: Text('Add to Playlist', style: TextStyle(color: Colors.white),
+                              ),
+                            ),
+                            PopupMenuItem(
+                              value: 'view_details',
+                              child: Text('View Details', style: TextStyle(color: Colors.white),
+                            ),
+                            ),
+                            PopupMenuItem(
+                              value: 'share',
+                              child: Text('Share', style: TextStyle(color: Colors.white),
+                            ),
+                            ),
+                          ],
+                        ).then((value) {
+
+                          if (value != null) {
+                            switch (value) {
+                              case 'add_to_playlist':
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => PlaylistScreen(song: widget.songs[currentIndex]),
+                                  ),
+                                );
+                                break;
+
+                              case 'view_details':
+                              // View song details logic
+                                print('View Details selected');
+                                break;
+                              case 'share':
+                              // Share song logic
+                                print('Share selected');
+                                break;
+                            }
+                          }
+                        });
+                      },
+                    )
+
                   ],
                 ),
               ),
